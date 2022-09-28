@@ -6,6 +6,13 @@ const ns = require('node-schedule');
 const discordjs = require('discord.js');
 const client = new discordjs.Client();
 const { TOKENS, NASA_URL } = require('./constants.js');
+const helpFields = [
+	{ name: 'apod.get_invite', value: "Retrieves bots' invite link." },
+	{ name: 'apod.get_raw', value: "Retrieves APODs' raw JSON data" },
+	{ name: 'apod.get', value: "Will immediately send formatted APOD" },
+	{ name: 'apod.set <channel_id> <milCST>', value: "Sets where/when to send APODs. Ex. `apod.set 123456789123456789 0805` will send in channel 123456789123456789 at 8:05 CST daily." }
+]
+
 
 /**
  * Reaches out to the NASA_URL and returns whatever is needed
@@ -161,13 +168,6 @@ async function onMessage(msg) {
 	break;
       case 'help':
         const commands = new discordjs.MessageEmbed();
-	let helpFields = [
-		{ name: 'apod.get_invite', value: "Retrieves bots' invite link." },
-		{ name: 'apod.get_raw', value: "Retrieves APODs' raw JSON data" },
-		{ name: 'apod.get', value: "Will immediately send formatted APOD" },
-		{ name: 'apod.set <channel_id> <milCST>', value: "Sets where/when to send APODs. Ex. `apod.set 123456789123456789 0805` will send in channel 123456789123456789 at 8:05 CST daily." }
-	]
-
         commands.addFields(...helpFields)
         
         await msg.reply(commands)
