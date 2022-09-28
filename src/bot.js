@@ -6,11 +6,12 @@ const ns = require('node-schedule');
 const discordjs = require('discord.js');
 const client = new discordjs.Client();
 const { TOKENS, NASA_URL } = require('./constants.js');
+const prefix = 'apod.';
 const helpFields = [
-	{ name: 'apod.get_invite', value: "Retrieves bots' invite link." },
-	{ name: 'apod.get_raw', value: "Retrieves APODs' raw JSON data" },
-	{ name: 'apod.get', value: "Will immediately send formatted APOD" },
-	{ name: 'apod.set <channel_id> <milCST>', value: "Sets where/when to send APODs. Ex. `apod.set 123456789123456789 0805` will send in channel 123456789123456789 at 8:05 CST daily." }
+	{ name: '${prefix}get_invite', value: "Retrieves bots' invite link." },
+	{ name: '${prefix}get_raw', value: "Retrieves APODs' raw JSON data" },
+	{ name: '${prefix}get', value: "Will immediately send formatted APOD" },
+	{ name: '${prefix}set <channel_id> <milCST>', value: "Sets where/when to send APODs. Ex. `${prefix}set 123456789123456789 0805` will send in channel 123456789123456789 at 8:05 CST daily." }
 ]
 
 
@@ -96,7 +97,7 @@ function onReady() {
   if (user !== undefined) {
     console.log(`Ready as: ${user.tag} ${user.id}`);
   }
-  client.user.setActivity('apod.help');
+  client.user.setActivity('${prefix}help');
   // TODO: set jobs for all lines in jobs.csv
 }
 
@@ -112,7 +113,7 @@ async function onMessage(msg) {
   // this will allow us to ignore case-sensitivity when talking to the bot
   const cmd = msg.content.toLowerCase();
 
-  if (cmd.substring(0, 5) === 'apod.') {
+  if (cmd.substring(0, prefix.length === '${prefix}') {
     let method = '';
     let args = [];
     if (cmd.indexOf(' ') === -1) {
