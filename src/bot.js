@@ -131,27 +131,22 @@ async function onMessage(msg) {
           let m = args[1].substring(2);
           let cron = `${+m} ${+h} * * *`;
           ns.scheduleJob(args[0], cron, async () => { await sendAPOD(args[0]) });
-          // TODO: add job to csv
           await msg.reply(`Job added to ${args[0]} for ${args[1]} daily`);
         } else {
           await msg.reply('Error: Invalid Channel ID');
         }
-        break;
+        
+	break;
       case 'cancel':
-        // TODO: need to add check that channel is text channel and that bot has permission to post in it
-
         const channel = await msg.guild.channels.cache.get(args[0]);
-        // if channel is in guild and job cancel successful
-        if (channelInGuild && ns.cancelJob(args[0])) {
-          await msg.reply('job for channel ' + args[0] + ' removed.')
-          // TODO: remove line from csv, where pk is the channel
-        } else {
-          await msg.reply('Cancel failed for ' + args[0]);
-        }
-        break;
+        ns.cancelJob(args[0])
+        await msg.reply('job for channel ' + args[0] + ' removed.')
+        
+	break;
       case 'get':
         await sendAPOD(msg.channel.id);
-        break;
+        
+	break;
       case 'get_raw':
         const pending = await msg.reply('Fetching your data!');
         const data = await getAPOD();
@@ -162,20 +157,19 @@ async function onMessage(msg) {
         } catch (e) {
           await msg.reply("Problem parsing JSON");
         }
-        break;
+        
+	break;
       case 'help':
         const commands = new discordjs.MessageEmbed();
-        commands.addFields(
-          { name: 'apod.get_invite', value: "Retrieves bots' invite link." },
-          { name: 'apod.get_raw', value: "Retrieves APODs' raw JSON data" },
-          { name: 'apod.get', value: "Will immediately send formatted APOD" },
-          { 
-            name: 'apod.set <channel_id> <milCST>',
-            value: "Sets where/when to send APODs. Ex. `apod.set \
-                    123456789123456789 0805` will send in channel \
-                    123456789123456789 at 8:05 CST daily." 
-          },
-        )
+	let helpFields = [
+		{ name: 'apod.get_invite', value: "Retrieves bots' invite link." },
+		{ name: 'apod.get_raw', value: "Retrieves APODs' raw JSON data" },
+		{ name: 'apod.get', value: "Will immediately send formatted APOD" },
+		{ name: 'apod.set <channel_id> <milCST>', value: "Sets where/when to send APODs. Ex. `apod.set 123456789123456789 0805` will send in channel 123456789123456789 at 8:05 CST daily." }
+	]
+
+        commands.addFields(...helpFields)
+        
         await msg.reply(commands)
         break;
     }
