@@ -1,0 +1,10 @@
+console.log/debugs need descriptions context/handled correctly
+use object destructuring for imports like discordjs
+review method comments. make sure methods returning what it says it is.
+split up into different files
+client.channels.fetch will throw error upon channel not existing. check for this
+lengthy switch case
+switch case has no default
+https://softwareengineering.stackexchange.com/q/18454
+check if bot is already executing or not. this can cause loops
+dont concat strings with +
