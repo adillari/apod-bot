@@ -8,3 +8,5 @@ switch case has no default
 https://softwareengineering.stackexchange.com/q/18454
 check if bot is already executing or not. this can cause loops
 dont concat strings with +
+eslint with airbnb style guide https://medium.com/@Tunmise/set-up-eslint-with-airbnb-style-guide-in-5-minutes-d7b4cc5707f8
+real logging library: log4js https://www.npmjs.com/package/log4js
