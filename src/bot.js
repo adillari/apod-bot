@@ -94,8 +94,7 @@ function onReady() {
   const { user } = this;
   // if the bot is not logged in then user is null
   if (user !== undefined) {
-    console.log(`Ready as: ${user.tag}`);
-    console.log(`Client ID: ${user.id}`);
+    console.log(`Ready as: ${user.tag} ${user.id}`);
   }
   client.user.setActivity('apod.help');
   // TODO: set jobs for all lines in jobs.csv
