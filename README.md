@@ -9,6 +9,6 @@ To use:
 
 `npm install`
 
-Now go into `src/constants.js`, and add your discord application token, your nasa api token, and your desired discord channel ID, where the APODs will be sent.
+Now go into `src/constants.js`, add your discord application token, and your NASA API token.
 
 `node src/bot.js`
